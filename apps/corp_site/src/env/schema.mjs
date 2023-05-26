@@ -16,7 +16,8 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional()
+	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional(),
+	NEXT_PUBLIC_GOOGLE_PLACES_API_KEY: z.string().optional()
 })
 
 /**
@@ -27,5 +28,7 @@ export const clientSchema = z.object({
  */
 export const clientEnv = {
 	NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-		process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+		process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+	NEXT_PUBLIC_GOOGLE_PLACES_API_KEY:
+		process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY
 }

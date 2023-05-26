@@ -1,4 +1,4 @@
-# Corporate Site
+# Create T3 App
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 
@@ -41,7 +41,7 @@ You can also dockerize this stack and deploy a container.
    <details>
    <summary>.dockerignore</summary>
 
-   ```bash
+   ```
    Dockerfile
    .dockerignore
    node_modules
