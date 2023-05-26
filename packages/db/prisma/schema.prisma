@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+//datasource db {
+//    provider = "sqlite"
+//    url      = env("DATABASE_URL")
+//}
+
+model State {
+  id               String           @id @default(cuid())
+  name             String
+  stateCode        Int              @unique
+  counties         County[]
+  politicalParties PoliticalParty[]
+  recLicenses      RecLicense[]
+
+  @@index([stateCode])
+}
+
+model County {
+  id           String         @id @default(cuid())
+  name         String
+  countyCode   String         @unique
+  countyNumber Int
+  stateCode    Int
+  state        State          @relation(fields: [stateCode], references: [stateCode])
+  voterData    VoterData[]
+  voterHistory VoterHistory[]
+
+  @@index([countyCode])
+  @@index([stateCode])
+}
+
+model RaceCode {
+  id          String      @id @default(cuid())
+  raceCode    Int         @unique
+  description String
+  voterData   VoterData[]
+
+  @@index([raceCode])
+}
+
+model PoliticalParty {
+  id        String      @id @default(cuid())
+  partyCode String      @unique
+  partyDesc String
+  stateCode Int
+  state     State       @relation(fields: [stateCode], references: [stateCode])
+  voterData VoterData[]
+
+  @@index([partyCode])
+  @@index([stateCode])
+}
+
+model VoterData {
+  id                              String         @id @default(cuid())
+  countyCode                      String
+  voterID                         String         @unique
+  nameLast                        String?
+  nameSuffix                      String?
+  nameFirst                       String?
+  nameMiddle                      String?
+  requestedPublicRecordsExemption Boolean
+  residenceAddress1               String?
+  residenceAddress2               String?
+  residenceCity                   String?
+  residenceState                  String?
+  residenceZipcode                String?
+  mailingAddress1                 String?
+  mailingAddress2                 String?
+  mailingAddress3                 String?
+  mailingCity                     String?
+  mailingState                    String?
+  mailingZipcode                  String?
+  mailingCountry                  String?
+  gender                          String
+  birthDate                       DateTime?
+  registrationDate                DateTime?
+  partyAffiliation                String
+  precinct                        String?
+  precinctGroup                   Int?
+  precinctSplit                   String?
+  precinctSuffix                  Int?
+  voterStatus                     String
+  congressionalDistrict           Int?
+  houseDistrict                   Int?
+  senateDistrict                  Int?
+  countyCommissionDistrict        Int?
+  schoolBoardDistrict             Int?
+  daytimeAreaCode                 Int?
+  daytimePhoneNumber              Int?
+  daytimePhoneExtension           Int?
+  emailAddress                    String?
+  raceCode                        Int
+  voterHistory                    VoterHistory[]
+  politicalParty                  PoliticalParty @relation(fields: [partyAffiliation], references: [partyCode])
+  countyId                        County         @relation(fields: [countyCode], references: [countyCode])
+  raceCodeID                      RaceCode       @relation(fields: [raceCode], references: [raceCode])
+
+  @@index([voterID])
+  @@index([residenceAddress1, residenceAddress2, residenceCity, residenceZipcode])
+  @@index([raceCode])
+  @@index([countyCode])
+  @@index([partyAffiliation])
+}
+
+model VoterHistoryCode {
+  id           String         @id @default(cuid())
+  historyCode  String         @unique
+  historyDesc  String
+  voterHistory VoterHistory[]
+
+  @@index([historyCode])
+}
+
+model VoterHistory {
+  id               String           @id @default(cuid())
+  countyCode       String
+  electionDate     DateTime
+  electionType     String
+  voterHistoryCode String
+  voterDataId      String
+  countyId         County           @relation(fields: [countyCode], references: [countyCode])
+  voterID          VoterData        @relation(fields: [voterDataId], references: [voterID])
+  historyCode      VoterHistoryCode @relation(fields: [voterHistoryCode], references: [historyCode])
+
+  @@index([voterHistoryCode])
+  @@index([voterDataId])
+  @@index([countyCode])
+}
+
+model RecLicense {
+  id                String   @id @default(cuid())
+  name              String
+  address           String
+  city              String
+  zipCode           String
+  phoneNumber       String?
+  emailAddress      String?
+  LicenseType       String
+  LicenseExpireDate DateTime
+  LicenseStartDate  DateTime
+  AgeAtTimeOfRun    Int
+  stateCode         Int
+  state             State    @relation(fields: [stateCode], references: [stateCode])
+
+  @@index([address, city, stateCode])
+  @@index([stateCode])
+}
+
+model PropertyDetails {
+  id String @id @default(cuid())
+}
