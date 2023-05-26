@@ -54,12 +54,6 @@ jobs:
           path: ${{ github.workspace }}/apps/web/.next/cache
           key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-web
 
-      - name: corp_site cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/apps/corp_site/.next/cache
-          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}-corp_site
-
       - name: Build, lint and type-check
         run: pnpm turbo build lint type-check
 
