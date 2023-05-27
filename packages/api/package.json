@@ -10,15 +10,15 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@clerk/nextjs": "^4.19.0",
-		"@populus/db": "workspace:^",
-		"@trpc/client": "^10.28.0",
-		"@trpc/server": "^10.28.0",
-		"superjson": "^1.12.3",
-		"zod": "^3.21.4"
+		"@clerk/nextjs": "^4.11.0",
+		"@populus/db": "*",
+		"@trpc/client": "^10.1.0",
+		"@trpc/server": "^10.1.0",
+		"superjson": "^1.9.1",
+		"zod": "^3.18.0"
 	},
 	"devDependencies": {
-		"eslint": "^8.41.0",
-		"typescript": "^4.9.5"
+		"eslint": "^8.28.0",
+		"typescript": "^4.9.3"
 	}
 }

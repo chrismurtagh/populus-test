@@ -5,11 +5,3 @@ import { withRateLimiter } from './middlewares/withRateLimiter'
 
 const middlewares = [withClerkAuth, withHeaders, withRateLimiter]
 export default stackMiddlewares(middlewares)
-
-// import { authMiddleware } from '@clerk/nextjs'
-
-// export default authMiddleware()
-
-// export const config = {
-// 	matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)']
-// }
