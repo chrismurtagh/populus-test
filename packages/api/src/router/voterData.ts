@@ -1,8 +1,8 @@
-import { protectedProcedure, router } from '../trpc'
+import { protectedProcedure, publicProcedure, router } from '../trpc'
 import { z } from 'zod'
 
 export const voterDataRouter = router({
-	getVoterRecordByID: protectedProcedure
+	getVoterRecordByID: publicProcedure
 		.input(z.string())
 		.query(({ ctx, input }) => {
 			return ctx.prisma.voterData.findFirst({
@@ -19,7 +19,7 @@ export const voterDataRouter = router({
 			})
 		}),
 
-	getVoterRecordByFullAddress: protectedProcedure
+	getVoterRecordByFullAddress: publicProcedure
 		.input(
 			z.object({
 				residenceAddress1: z.string(),
@@ -45,7 +45,7 @@ export const voterDataRouter = router({
 			})
 		}),
 
-	getVoterRecordByGoogleAddress: protectedProcedure
+	getVoterRecordByGoogleAddress: publicProcedure
 		.input(
 			z.object({
 				residenceAddress1: z.string(),
